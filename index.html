@@ -18,7 +18,7 @@
     .stage.level-two .scene-wrap:before{top:50%}
     .right-rail{align-items:flex-end}.stats{width:100%;max-width:240px;border:1px solid var(--line);border-radius:7px;background:rgba(19,22,24,.68);padding:17px 17px 14px;backdrop-filter:blur(12px)}.stats-top{display:flex;align-items:flex-start;justify-content:space-between}.stats-label{font:9px 'DM Mono',monospace;letter-spacing:.13em;color:#818781}.timer{font:28px 'DM Mono',monospace;letter-spacing:-.04em;margin-top:6px}.timer em{font-style:normal;color:#929890;font-size:17px}.best{font:9px 'DM Mono',monospace;color:#82887e;text-align:right;margin-top:2px}.best b{display:block;color:#d1d6c4;font-size:11px;font-weight:400;margin-top:5px}.progress-meta{display:flex;justify-content:space-between;margin-top:22px;color:#899089;font:9px 'DM Mono',monospace;letter-spacing:.08em}.progress-meta b{color:#c8cec1;font-weight:400}.progress{height:3px;background:#303533;border-radius:2px;margin-top:9px;overflow:hidden}.progress i{display:block;height:100%;width:0;background:var(--lime);transition:width .35s ease;box-shadow:0 0 10px rgba(212,243,106,.45)}
     .thread-list{width:100%;max-width:240px;margin-top:25px}.thread-head{display:flex;justify-content:space-between;align-items:center;font:9px 'DM Mono',monospace;color:#828982;letter-spacing:.13em;padding-bottom:11px;border-bottom:1px solid var(--line)}.thread-head b{color:#d1d6c9;font-weight:400;letter-spacing:0}.thread-items{display:flex;flex-direction:column;gap:0}.thread-item{height:44px;display:flex;align-items:center;border-bottom:1px solid rgba(255,255,255,.055);gap:10px;color:#777e7b;font-size:11px;transition:.25s}.thread-item.active{color:#d7dacd}.thread-item.done{opacity:.35}.swatch{width:9px;height:9px;border-radius:50%;box-shadow:0 0 10px color-mix(in srgb,var(--c),transparent 50%);background:var(--c)}.thread-name{flex:1}.thread-state{font:9px 'DM Mono',monospace;color:#737a73}.thread-item.active .thread-state{color:var(--lime)}.thread-item.done .thread-state{color:#71796d}
-    .restart{margin-top:20px;width:100%;max-width:240px;height:39px;display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.025);color:#bec2b8;border-radius:5px;font:10px Manrope,sans-serif;cursor:pointer;transition:.2s}.restart:hover{border-color:rgba(212,243,106,.5);color:var(--lime)}.restart svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.message{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(.96);opacity:0;pointer-events:none;z-index:5;padding:22px 29px;border:1px solid rgba(212,243,106,.35);border-radius:7px;background:rgba(17,21,19,.94);text-align:center;box-shadow:0 20px 70px #0009;transition:.35s}.message.show{opacity:1;transform:translate(-50%,-50%) scale(1)}.message small{font:9px 'DM Mono',monospace;letter-spacing:.15em;color:var(--lime)}.message strong{display:block;font-size:20px;margin-top:7px}.message span{display:block;color:#a2a89c;font:11px 'DM Mono',monospace;margin-top:7px}.mobile-progress{display:none}
+    .restart{margin-top:20px;width:100%;max-width:240px;height:39px;display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.025);color:#bec2b8;border-radius:5px;font:10px Manrope,sans-serif;cursor:pointer;transition:.2s}.restart:hover{border-color:rgba(212,243,106,.5);color:var(--lime)}.restart svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.message{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(.96);opacity:0;visibility:hidden;pointer-events:none;z-index:5;padding:22px 29px;border:1px solid rgba(212,243,106,.35);border-radius:7px;background:rgba(17,21,19,.94);text-align:center;box-shadow:0 20px 70px #0009;transition:opacity .35s,transform .35s,visibility 0s linear .35s}.message.show{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,-50%) scale(1);transition:opacity .35s,transform .35s,visibility 0s}.message .next-level[hidden]{display:none!important}.message:not(.show) .next-level{pointer-events:none}.message.show .next-level{pointer-events:auto}.message small{font:9px 'DM Mono',monospace;letter-spacing:.15em;color:var(--lime)}.message strong{display:block;font-size:20px;margin-top:7px}.message span{display:block;color:#a2a89c;font:11px 'DM Mono',monospace;margin-top:7px}.mobile-progress{display:none}
     @media(max-width:900px){.stage{grid-template-columns:180px minmax(320px,1fr);padding:25px 26px 28px;gap:8px}.right-rail{position:absolute;right:26px;top:24px;bottom:23px;width:210px;pointer-events:none}.stats,.thread-list,.restart{pointer-events:auto}.stats{padding:13px}.thread-list{margin-top:15px}.thread-item{height:36px}.left-rail{padding-right:0}.scene-wrap{grid-column:2;grid-row:1}.hint{bottom:36px}}
     @media(max-width:650px){.app{min-height:560px}.topbar{height:62px;padding:0 17px}.brand-mark{width:27px;height:27px}.top-actions{gap:6px}.level-chip{height:32px;padding:0 8px;font-size:10px}.icon-btn,.sound-btn{width:32px;height:32px}.stage{height:calc(100% - 62px);display:block;padding:0 15px 17px}.left-rail{position:absolute;z-index:3;left:18px;top:19px;pointer-events:none}.eyebrow{font-size:8px}.level-title{font-size:20px;margin:6px 0 3px}.level-copy{font-size:9px;max-width:145px;line-height:1.45}.objective,.bottom-note{display:none}.scene-wrap{position:absolute;inset:84px 0 100px}.scene-label{bottom:6px;font-size:8px}.hint{bottom:28px;font-size:9px;padding:7px 9px}.right-rail{position:absolute;z-index:3;left:15px;right:15px;top:auto;bottom:14px;width:auto;height:72px;display:block;pointer-events:none}.stats{position:absolute;left:0;right:0;bottom:0;width:auto;max-width:none;height:63px;padding:9px 12px;display:grid;grid-template-columns:1fr 1.15fr;gap:14px;align-items:center}.stats-top{display:block}.stats-label{font-size:8px}.timer{font-size:21px;margin-top:2px}.timer em{font-size:13px}.best{position:absolute;right:12px;top:9px;margin:0;text-align:right;font-size:8px}.best b{font-size:9px;margin-top:2px}.progress-meta{margin:0;font-size:8px;display:block}.progress-meta b{display:block;font-size:10px;margin-top:5px}.progress{grid-column:2;margin-top:-14px;align-self:end;margin-bottom:8px}.thread-list,.restart{display:none}.mobile-progress{display:block}.message{width:max-content;max-width:88vw}.message strong{font-size:17px}.message .next-level{display:flex}}
     @media(max-width:370px){.level-chip{width:30px;padding:0;justify-content:center}.level-chip span{display:none}.top-actions{gap:5px}.scene-wrap{inset:78px 0 96px}.level-title{font-size:18px}.level-copy{max-width:128px}}
@@ -88,18 +88,27 @@
         blockers[strand] = [first, second];
       }
 
-      const geometry = order.map((strand, position) => ({
-        phase: random() * Math.PI * 2,
-        turns: definition.turns + (random() - .5) * .85,
-        band: Math.floor(random() * 3),
-        braidPhase: random() * Math.PI * 2,
-        braidSwing: .78 + random() * .5,
-        radialLift: .045 + random() * .1,
-        crossSweep: .1 + random() * .18,
-        order: position
-      }));
+      const colorOrder = Array.from({length: order.length}, (_, i) => i);
+      for (let i = colorOrder.length - 1; i > 0; i--) {
+        const j = Math.floor(random() * (i + 1));
+        [colorOrder[i], colorOrder[j]] = [colorOrder[j], colorOrder[i]];
+      }
 
-      return {blockers, geometry, order, rank};
+      const geometry = Array(order.length);
+      order.forEach((strand, position) => {
+        geometry[strand] = {
+          phase: random() * Math.PI * 2,
+          turns: definition.turns + (random() - .5) * .85,
+          band: Math.floor(random() * 3),
+          braidPhase: random() * Math.PI * 2,
+          braidSwing: .78 + random() * .5,
+          radialLift: .045 + random() * .1,
+          crossSweep: .1 + random() * .18,
+          order: position
+        };
+      });
+
+      return {blockers, colorOrder, geometry, order, rank};
     }
 
     const levels = {
@@ -121,11 +130,14 @@
     const levelNumber = requestedLevel >= 2 && unlocked ? 2 : 1;
     if (requestedLevel >= 2 && !unlocked) history.replaceState(null, '', location.pathname);
     const level = levels[levelNumber];
-    const seedKey = `threadbound-layout-seed-${levelNumber}`;
-    const requestedSeed = Number(new URLSearchParams(location.search).get('seed'));
-    const storedSeed = Number(localStorage.getItem(seedKey));
-    const layoutSeed = requestedSeed || storedSeed || crypto.getRandomValues(new Uint32Array(1))[0] || 1;
-    localStorage.setItem(seedKey, String(layoutSeed));
+    const params = new URLSearchParams(location.search);
+    const requestedSeed = Number(params.get('seed'));
+    const layoutSeed = requestedSeed || crypto.getRandomValues(new Uint32Array(1))[0] || 1;
+    if (params.has('seed')) {
+      params.delete('seed');
+      const query = params.toString();
+      history.replaceState(null, '', `${location.pathname}${query ? `?${query}` : ''}`);
+    }
     const layout = createLayout(level, layoutSeed);
     function verifyLayout() {
       const removed = new Set();
@@ -152,8 +164,8 @@
       : '找到两端都露出的线，<br>依次点选两端即可拆线。';
     document.getElementById('progressText').textContent = `0 / ${level.colors.length}`;
     document.getElementById('remaining').textContent = `${String(level.colors.length).padStart(2,'0')} 条剩余`;
-    const colors = level.colors;
-    const names = level.names;
+    const colors = layout.colorOrder.map(index => level.colors[index]);
+    const names = layout.colorOrder.map(index => level.names[index]);
     const count = colors.length;
     const endBlockers = layout.blockers;
     const bestKey = `threadbound-best-${levelNumber}`;
@@ -162,8 +174,9 @@
     const camera = new THREE.PerspectiveCamera(35,1,.1,100);
     camera.position.set(0,2.05,9.5);
     camera.lookAt(0,.5,0);
-    const renderer = new THREE.WebGLRenderer({antialias:true,alpha:true,powerPreference:'high-performance'});
-    renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+    const coarsePointer = matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0;
+    const renderer = new THREE.WebGLRenderer({antialias:!coarsePointer,alpha:true,powerPreference:'high-performance'});
+    renderer.setPixelRatio(Math.min(devicePixelRatio,coarsePointer?1.35:2));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.18;
@@ -281,8 +294,11 @@
     const cameraRotation = new THREE.Quaternion();
     const turn = new THREE.Quaternion();
     const axis = new THREE.Vector3();
+    const trackball = new THREE.Vector3();
+    const rotationPoint = new THREE.Vector3();
     let gesture = null;
-    const mobileTouch = matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0;
+    let sceneDirty = true;
+    const mobileTouch = coarsePointer;
     rig.rotation.y = -.23;
 
     function trackballPoint(event) {
@@ -290,7 +306,7 @@
       const radius = Math.min(rect.width, rect.height) * .36;
       const x = (event.clientX - rect.left - rect.width / 2) / radius;
       const y = (rect.top + rect.height * .42 - event.clientY) / radius;
-      return new THREE.Vector3(x, y, Math.sqrt(Math.max(0, 1 - x * x - y * y))).normalize();
+      return trackball.set(x, y, Math.sqrt(Math.max(0, 1 - x * x - y * y))).normalize();
     }
 
     function pickTipAt(clientX, clientY) {
@@ -306,12 +322,11 @@
         const threshold = 42;
         let nearest = null;
         let nearestDistance = threshold;
-        const world = new THREE.Vector3();
         for (const yarn of yarns) {
           if (yarn.removed) continue;
           for (const tip of yarn.tips) {
             if (!tip.visible) continue;
-            const screen = tip.getWorldPosition(world).project(camera);
+            const screen = tip.getWorldPosition(rotationPoint).project(camera);
             if (screen.z < -1 || screen.z > 1) continue;
             const x = rect.left + (screen.x + 1) * rect.width / 2;
             const y = rect.top + (1 - screen.y) * rect.height / 2;
@@ -340,7 +355,7 @@
       return null;
     }
 
-    function resize(){const r=wrap.getBoundingClientRect();renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;camera.position.z=r.width<600?11.6:9.5;camera.position.y=r.width<600?2.45:2.05;camera.lookAt(0,levelNumber===2?0:.5,0);camera.updateProjectionMatrix();}
+    function resize(){const r=wrap.getBoundingClientRect();renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;camera.position.z=r.width<600?11.6:9.5;camera.position.y=r.width<600?2.45:2.05;camera.lookAt(0,levelNumber===2?0:.5,0);camera.updateProjectionMatrix();sceneDirty=true;}
     new ResizeObserver(resize).observe(wrap);resize();
     function timeText(s){const cs=Math.floor((s%1)*100),secs=Math.floor(s)%60,mins=Math.floor(s/60);return `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}.${String(cs).padStart(2,'0')}`;}
     function updateUI(){const removed=yarns.filter(y=>y.removed).length;document.getElementById('timer').innerHTML=timeText(elapsed).replace(':','<em>:</em>').replace('.', '<em>.</em>');document.getElementById('progressText').textContent=`${removed} / ${count}`;document.getElementById('progressBar').style.width=`${removed/count*100}%`;document.getElementById('remaining').textContent=`${String(count-removed).padStart(2,'0')} 条剩余`;document.querySelectorAll('.thread-item').forEach((el,i)=>{const y=yarns[i];el.classList.toggle('active',y.available&&!y.removed);el.classList.toggle('done',y.removed);el.querySelector('.thread-state').textContent=y.removed?'已拆':y.available?'可拆':'缠绕中';});}
@@ -365,6 +380,7 @@
       tip.add(selectionRing);
       selectionRing.material.color.copy(yarn.material.color).lerp(new THREE.Color(0xffffff), .55);
       hint.innerHTML = yarn.available ? selectionHint : blockedHint;
+      sceneDirty = true;
     }
 
     function flashThenRemove(yarn, fromEnd) {
@@ -402,16 +418,16 @@
         const position = progress * (path.length - 1);
         const index = Math.floor(position);
         if (t < 1) {
-          const first = path[index].clone().lerp(path[index + 1], position - index);
-          const outward = new THREE.Vector3(0, first.y, first.z).normalize();
-          const pulled = first.clone().addScaledVector(outward, .65 * Math.sin(t * Math.PI));
+          const first = rotationPoint.copy(path[index]).lerp(path[index + 1], position - index);
+          const outward = axis.set(0, first.y, first.z).normalize();
+          const pulled = trackball.copy(first).addScaledVector(outward, .65 * Math.sin(t * Math.PI));
           const points = [pulled, ...path.slice(index + 1)];
           const radius = ropeRadius * (1 - .55 * progress);
           yarn.tube.geometry.dispose();
           yarn.tube.geometry = new THREE.TubeGeometry(
             new THREE.CatmullRomCurve3(points), Math.max(8, points.length), radius, 8, false
           );
-          firstTip.position.copy(pulled);
+          firstTip.position.copy(trackball);
           firstTip.scale.setScalar(radius / ropeRadius);
           lastTip.scale.copy(firstTip.scale);
           yarn.material.opacity = 1 - progress * .92;
@@ -424,6 +440,7 @@
         yarn.tube.geometry.dispose();
         yarn.material.dispose();
         yarns.filter(other => !other.removed && !other.available).forEach(updateEnds);
+        sceneDirty = true;
         active = null;
         elapsed = (now - startTime) / 1000;
         hint.innerHTML = idleHint;
@@ -455,7 +472,7 @@
       if (gesture || event.button !== 0) return;
       gesture = {
         id: event.pointerId, x: event.clientX, y: event.clientY,
-        lastPoint: trackballPoint(event), dragging: false
+        lastPoint: trackballPoint(event).clone(), dragging: false
       };
       canvas.setPointerCapture(event.pointerId);
     });
@@ -464,12 +481,13 @@
       if (gesture?.id !== event.pointerId) return;
       if (!gesture.dragging && Math.hypot(event.clientX - gesture.x, event.clientY - gesture.y) < 5) return;
       gesture.dragging = true;
-      const point = trackballPoint(event);
-      turn.setFromUnitVectors(gesture.lastPoint, point);
+      trackballPoint(event);
+      turn.setFromUnitVectors(gesture.lastPoint, trackball);
       cameraRotation.copy(camera.quaternion);
       turn.premultiply(cameraRotation).multiply(cameraRotation.invert());
       rig.quaternion.premultiply(turn).normalize();
-      gesture.lastPoint = point;
+      gesture.lastPoint.copy(trackball);
+      sceneDirty = true;
     });
 
     canvas.addEventListener('pointerup', event => {
@@ -490,12 +508,14 @@
       axis.set(0, 0, 1).applyQuaternion(camera.quaternion);
       turn.setFromAxisAngle(axis, Math.sign(event.deltaY) * .12);
       rig.quaternion.premultiply(turn).normalize();
+      sceneDirty = true;
     }, {passive: false});
 
     function reset(){
       const nextSeed = crypto.getRandomValues(new Uint32Array(1))[0] || (layoutSeed + 1);
-      localStorage.setItem(seedKey, String(nextSeed));
-      location.reload();
+      const nextUrl = new URL(location.href);
+      nextUrl.searchParams.set('seed', String(nextSeed));
+      location.href = nextUrl.href;
     }
     document.getElementById('restartBtn').addEventListener('click',reset);
     document.getElementById('levelOne').addEventListener('click', () => {
@@ -533,7 +553,10 @@
         elapsed = (now - startTime) / 1000;
         document.getElementById('timer').innerHTML = timeText(elapsed).replace(':','<em>:</em>').replace('.', '<em>.</em>');
       }
-      renderer.render(scene, camera);
+      if (sceneDirty || active) {
+        renderer.render(scene, camera);
+        sceneDirty = false;
+      }
     }
     render();
   </script>
