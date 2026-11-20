@@ -178,6 +178,7 @@
     const turn = new THREE.Quaternion();
     const axis = new THREE.Vector3();
     let gesture = null;
+    const mobileTouch = matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0;
     rig.rotation.y = -.23;
 
     function trackballPoint(event) {
@@ -186,6 +187,53 @@
       const x = (event.clientX - rect.left - rect.width / 2) / radius;
       const y = (rect.top + rect.height * .42 - event.clientY) / radius;
       return new THREE.Vector3(x, y, Math.sqrt(Math.max(0, 1 - x * x - y * y))).normalize();
+    }
+
+    function pickTipAt(clientX, clientY) {
+      const rect = renderer.domElement.getBoundingClientRect();
+      pointer.set((clientX - rect.left) / rect.width * 2 - 1,
+        1 - (clientY - rect.top) / rect.height * 2);
+      scene.updateMatrixWorld(true);
+      camera.updateMatrixWorld(true);
+
+      // Prefer the nearest exposed endpoint on touchscreens, even when the
+      // ray passes through the barrel or another strand at the same screen spot.
+      if (mobileTouch) {
+        const threshold = 42;
+        let nearest = null;
+        let nearestDistance = threshold;
+        const world = new THREE.Vector3();
+        for (const yarn of yarns) {
+          if (yarn.removed) continue;
+          for (const tip of yarn.tips) {
+            if (!tip.visible) continue;
+            const screen = tip.getWorldPosition(world).project(camera);
+            if (screen.z < -1 || screen.z > 1) continue;
+            const x = rect.left + (screen.x + 1) * rect.width / 2;
+            const y = rect.top + (1 - screen.y) * rect.height / 2;
+            const distance = Math.hypot(clientX - x, clientY - y);
+            if (distance < nearestDistance) {
+              nearest = tip;
+              nearestDistance = distance;
+            }
+          }
+        }
+        if (nearest) return nearest;
+      }
+
+      raycaster.setFromCamera(pointer, camera);
+
+      const hits = raycaster.intersectObjects(
+        model.children.filter(mesh => mesh.visible &&
+          (mesh.userData.ropeIndex !== undefined || mesh.userData.getTipAt)), false
+      );
+      for (const hit of hits) {
+        const {ropeIndex, getTipAt} = hit.object.userData;
+        const tip = ropeIndex !== undefined ? hit.object : getTipAt?.(hit.uv?.x);
+        if (tip) return tip;
+      }
+
+      return null;
     }
 
     function resize(){const r=wrap.getBoundingClientRect();renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;camera.position.z=r.width<600?11.6:9.5;camera.position.y=r.width<600?2.45:2.05;camera.lookAt(0,.5,0);camera.updateProjectionMatrix();}
@@ -317,16 +365,7 @@
       const {dragging} = gesture;
       gesture = null;
       if (dragging || active) return;
-      const rect = canvas.getBoundingClientRect();
-      pointer.set((event.clientX - rect.left) / rect.width * 2 - 1,
-        1 - (event.clientY - rect.top) / rect.height * 2);
-      scene.updateMatrixWorld(true);
-      camera.updateMatrixWorld(true);
-      raycaster.setFromCamera(pointer, camera);
-      const [hit] = raycaster.intersectObjects(model.children.filter(mesh => mesh.visible), false);
-      if (!hit) return;
-      const {ropeIndex, getTipAt} = hit.object.userData;
-      const tip = ropeIndex !== undefined ? hit.object : getTipAt?.(hit.uv.x);
+      const tip = pickTipAt(event.clientX, event.clientY);
       if (tip) selectTip(tip);
     });
 
