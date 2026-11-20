@@ -12,33 +12,35 @@
     .grain{position:fixed;inset:0;pointer-events:none;opacity:.11;z-index:1;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E")}
     .app{position:relative;width:100%;height:100%;min-height:560px;isolation:isolate}.topbar{height:76px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 34px;position:relative;z-index:4;background:rgba(15,18,20,.55);backdrop-filter:blur(16px)}
     .brand{display:flex;align-items:center;gap:12px}.brand-mark{width:30px;height:30px;border:1px solid #a4b77b;border-radius:50%;display:grid;place-items:center;color:var(--lime);font-size:17px;line-height:1;transform:rotate(-35deg)}.brand-name{font-size:13px;font-weight:800;letter-spacing:.08em}.brand-sub{font:10px 'DM Mono',monospace;color:var(--muted);margin-top:3px;letter-spacing:.1em}
-    .top-actions{display:flex;align-items:center;gap:10px}.icon-btn,.sound-btn{height:36px;width:36px;border:1px solid var(--line);border-radius:6px;background:rgba(255,255,255,.025);color:#c3c5c1;display:grid;place-items:center;cursor:pointer;transition:.2s}.icon-btn:hover,.sound-btn:hover{border-color:#82877e;color:var(--ink)}.icon-btn svg,.sound-btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}.level-chip{height:36px;display:flex;align-items:center;gap:9px;padding:0 12px;border:1px solid var(--line);border-radius:6px;color:#c5c6bf;font-size:11px}.level-chip b{color:var(--lime);font:11px 'DM Mono',monospace}
+    .top-actions{display:flex;align-items:center;gap:10px}.icon-btn,.sound-btn{height:36px;width:36px;border:1px solid var(--line);border-radius:6px;background:rgba(255,255,255,.025);color:#c3c5c1;display:grid;place-items:center;cursor:pointer;transition:.2s}.icon-btn:hover,.sound-btn:hover{border-color:#82877e;color:var(--ink)}.icon-btn svg,.sound-btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}.level-chip{height:36px;display:flex;align-items:center;gap:9px;padding:0 12px;border:1px solid var(--line);border-radius:6px;background:rgba(255,255,255,.025);color:#c5c6bf;font:11px Manrope,sans-serif;cursor:pointer}.level-chip b{color:var(--lime);font:11px 'DM Mono',monospace}.level-chip.current{border-color:rgba(212,243,106,.38);background:rgba(212,243,106,.07)}.level-chip.locked,.level-chip:disabled{color:#696f6a;cursor:not-allowed}.next-level{pointer-events:auto;margin:16px auto 0;width:auto;padding:0 16px}.message{pointer-events:none}.message.show{pointer-events:auto}
     .stage{height:calc(100% - 76px);position:relative;display:grid;grid-template-columns:minmax(210px,1fr) minmax(480px,2fr) minmax(250px,1fr);padding:32px 42px 34px;gap:20px;z-index:2}.left-rail,.right-rail{position:relative;z-index:2;display:flex;flex-direction:column}.eyebrow{color:#90958e;font:10px 'DM Mono',monospace;letter-spacing:.15em;text-transform:uppercase}.level-title{font-size:29px;line-height:1.13;letter-spacing:-.04em;margin:12px 0 8px;font-weight:700}.level-title span{color:#a8ac9f}.level-copy{font-size:12px;color:#8d9292;line-height:1.7;max-width:210px}.objective{margin-top:31px;padding-top:17px;border-top:1px solid var(--line);max-width:220px}.objective-head{font-size:10px;font-weight:700;letter-spacing:.1em;color:#a4a69e}.objective-row{display:flex;align-items:center;gap:10px;margin-top:13px;font-size:12px;color:#bbc0b5}.objective-icon{width:27px;height:27px;display:grid;place-items:center;border:1px solid rgba(212,243,106,.27);border-radius:5px;color:var(--lime);font-size:13px}.objective-row small{display:block;font:10px 'DM Mono',monospace;color:#747b76;margin-top:3px}.bottom-note{margin-top:auto;color:#777d7d;font:10px 'DM Mono',monospace;letter-spacing:.05em;line-height:1.8}.bottom-note .dot{color:var(--lime);font-size:15px;vertical-align:-1px;margin-right:6px}
     .scene-wrap{position:relative;min-width:0;min-height:0}.scene-wrap:before{content:"";position:absolute;width:min(78%,560px);aspect-ratio:1;border-radius:50%;left:50%;top:42%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(191,214,144,.09),rgba(95,115,90,.03) 48%,transparent 70%);pointer-events:none}.scene-wrap canvas{width:100%;height:100%;display:block;touch-action:none;outline:none}.scene-label{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);white-space:nowrap;color:#737b78;font:9px 'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase;pointer-events:none}.scene-label span{color:#bac390;margin:0 7px}.hint{position:absolute;bottom:38px;left:50%;transform:translateX(-50%);padding:8px 12px;border:1px solid rgba(255,255,255,.1);background:rgba(18,21,22,.75);border-radius:4px;color:#a4aaa3;font-size:10px;white-space:nowrap;pointer-events:none;backdrop-filter:blur(8px)}.hint strong{color:var(--lime);font-weight:600}
+    .stage.level-two .scene-wrap:before{top:50%}
     .right-rail{align-items:flex-end}.stats{width:100%;max-width:240px;border:1px solid var(--line);border-radius:7px;background:rgba(19,22,24,.68);padding:17px 17px 14px;backdrop-filter:blur(12px)}.stats-top{display:flex;align-items:flex-start;justify-content:space-between}.stats-label{font:9px 'DM Mono',monospace;letter-spacing:.13em;color:#818781}.timer{font:28px 'DM Mono',monospace;letter-spacing:-.04em;margin-top:6px}.timer em{font-style:normal;color:#929890;font-size:17px}.best{font:9px 'DM Mono',monospace;color:#82887e;text-align:right;margin-top:2px}.best b{display:block;color:#d1d6c4;font-size:11px;font-weight:400;margin-top:5px}.progress-meta{display:flex;justify-content:space-between;margin-top:22px;color:#899089;font:9px 'DM Mono',monospace;letter-spacing:.08em}.progress-meta b{color:#c8cec1;font-weight:400}.progress{height:3px;background:#303533;border-radius:2px;margin-top:9px;overflow:hidden}.progress i{display:block;height:100%;width:0;background:var(--lime);transition:width .35s ease;box-shadow:0 0 10px rgba(212,243,106,.45)}
     .thread-list{width:100%;max-width:240px;margin-top:25px}.thread-head{display:flex;justify-content:space-between;align-items:center;font:9px 'DM Mono',monospace;color:#828982;letter-spacing:.13em;padding-bottom:11px;border-bottom:1px solid var(--line)}.thread-head b{color:#d1d6c9;font-weight:400;letter-spacing:0}.thread-items{display:flex;flex-direction:column;gap:0}.thread-item{height:44px;display:flex;align-items:center;border-bottom:1px solid rgba(255,255,255,.055);gap:10px;color:#777e7b;font-size:11px;transition:.25s}.thread-item.active{color:#d7dacd}.thread-item.done{opacity:.35}.swatch{width:9px;height:9px;border-radius:50%;box-shadow:0 0 10px color-mix(in srgb,var(--c),transparent 50%);background:var(--c)}.thread-name{flex:1}.thread-state{font:9px 'DM Mono',monospace;color:#737a73}.thread-item.active .thread-state{color:var(--lime)}.thread-item.done .thread-state{color:#71796d}
     .restart{margin-top:20px;width:100%;max-width:240px;height:39px;display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.025);color:#bec2b8;border-radius:5px;font:10px Manrope,sans-serif;cursor:pointer;transition:.2s}.restart:hover{border-color:rgba(212,243,106,.5);color:var(--lime)}.restart svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.message{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(.96);opacity:0;pointer-events:none;z-index:5;padding:22px 29px;border:1px solid rgba(212,243,106,.35);border-radius:7px;background:rgba(17,21,19,.94);text-align:center;box-shadow:0 20px 70px #0009;transition:.35s}.message.show{opacity:1;transform:translate(-50%,-50%) scale(1)}.message small{font:9px 'DM Mono',monospace;letter-spacing:.15em;color:var(--lime)}.message strong{display:block;font-size:20px;margin-top:7px}.message span{display:block;color:#a2a89c;font:11px 'DM Mono',monospace;margin-top:7px}.mobile-progress{display:none}
     @media(max-width:900px){.stage{grid-template-columns:180px minmax(320px,1fr);padding:25px 26px 28px;gap:8px}.right-rail{position:absolute;right:26px;top:24px;bottom:23px;width:210px;pointer-events:none}.stats,.thread-list,.restart{pointer-events:auto}.stats{padding:13px}.thread-list{margin-top:15px}.thread-item{height:36px}.left-rail{padding-right:0}.scene-wrap{grid-column:2;grid-row:1}.hint{bottom:36px}}
-    @media(max-width:650px){.app{min-height:560px}.topbar{height:62px;padding:0 17px}.brand-mark{width:27px;height:27px}.top-actions{gap:6px}.level-chip{height:32px;padding:0 8px;font-size:10px}.icon-btn,.sound-btn{width:32px;height:32px}.stage{height:calc(100% - 62px);display:block;padding:0 15px 17px}.left-rail{position:absolute;z-index:3;left:18px;top:19px;pointer-events:none}.eyebrow{font-size:8px}.level-title{font-size:20px;margin:6px 0 3px}.level-copy{font-size:9px;max-width:145px;line-height:1.45}.objective,.bottom-note{display:none}.scene-wrap{position:absolute;inset:84px 0 100px}.scene-label{bottom:6px;font-size:8px}.hint{bottom:28px;font-size:9px;padding:7px 9px}.right-rail{position:absolute;z-index:3;left:15px;right:15px;top:auto;bottom:14px;width:auto;height:72px;display:block;pointer-events:none}.stats{position:absolute;left:0;right:0;bottom:0;width:auto;max-width:none;height:63px;padding:9px 12px;display:grid;grid-template-columns:1fr 1.15fr;gap:14px;align-items:center}.stats-top{display:block}.stats-label{font-size:8px}.timer{font-size:21px;margin-top:2px}.timer em{font-size:13px}.best{position:absolute;right:12px;top:9px;margin:0;text-align:right;font-size:8px}.best b{font-size:9px;margin-top:2px}.progress-meta{margin:0;font-size:8px;display:block}.progress-meta b{display:block;font-size:10px;margin-top:5px}.progress{grid-column:2;margin-top:-14px;align-self:end;margin-bottom:8px}.thread-list,.restart{display:none}.mobile-progress{display:block}.message{width:max-content;max-width:88vw}.message strong{font-size:17px}}
-    @media(max-width:370px){.level-chip{display:none}.scene-wrap{inset:78px 0 96px}.level-title{font-size:18px}.level-copy{max-width:128px}}
+    @media(max-width:650px){.app{min-height:560px}.topbar{height:62px;padding:0 17px}.brand-mark{width:27px;height:27px}.top-actions{gap:6px}.level-chip{height:32px;padding:0 8px;font-size:10px}.icon-btn,.sound-btn{width:32px;height:32px}.stage{height:calc(100% - 62px);display:block;padding:0 15px 17px}.left-rail{position:absolute;z-index:3;left:18px;top:19px;pointer-events:none}.eyebrow{font-size:8px}.level-title{font-size:20px;margin:6px 0 3px}.level-copy{font-size:9px;max-width:145px;line-height:1.45}.objective,.bottom-note{display:none}.scene-wrap{position:absolute;inset:84px 0 100px}.scene-label{bottom:6px;font-size:8px}.hint{bottom:28px;font-size:9px;padding:7px 9px}.right-rail{position:absolute;z-index:3;left:15px;right:15px;top:auto;bottom:14px;width:auto;height:72px;display:block;pointer-events:none}.stats{position:absolute;left:0;right:0;bottom:0;width:auto;max-width:none;height:63px;padding:9px 12px;display:grid;grid-template-columns:1fr 1.15fr;gap:14px;align-items:center}.stats-top{display:block}.stats-label{font-size:8px}.timer{font-size:21px;margin-top:2px}.timer em{font-size:13px}.best{position:absolute;right:12px;top:9px;margin:0;text-align:right;font-size:8px}.best b{font-size:9px;margin-top:2px}.progress-meta{margin:0;font-size:8px;display:block}.progress-meta b{display:block;font-size:10px;margin-top:5px}.progress{grid-column:2;margin-top:-14px;align-self:end;margin-bottom:8px}.thread-list,.restart{display:none}.mobile-progress{display:block}.message{width:max-content;max-width:88vw}.message strong{font-size:17px}.message .next-level{display:flex}}
+    @media(max-width:370px){.level-chip{width:30px;padding:0;justify-content:center}.level-chip span{display:none}.top-actions{gap:5px}.scene-wrap{inset:78px 0 96px}.level-title{font-size:18px}.level-copy{max-width:128px}}
   </style>
 </head>
 <body>
   <div class="grain"></div>
   <main class="app">
     <header class="topbar">
-      <div class="brand"><div class="brand-mark">∞</div><div><div class="brand-name">绕 线 局</div><div class="brand-sub">THREADBOUND / PUZZLE 01</div></div></div>
+      <div class="brand"><div class="brand-mark">∞</div><div><div class="brand-name">绕 线 局</div><div class="brand-sub" id="brandSub">THREADBOUND / PUZZLE 01</div></div></div>
       <div class="top-actions">
-        <div class="level-chip"><b>01</b><span>第一关</span></div>
+        <button class="level-chip" id="levelOne" type="button"><b>01</b><span>第一关</span></button>
+        <button class="level-chip" id="levelTwo" type="button" aria-label="第二关已锁定"><b>02</b><span>🔒</span></button>
         <button class="sound-btn" id="soundBtn" title="音效开关" aria-label="音效开关"><svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 5a9 9 0 0 1 0 14"/></svg></button>
         <button class="icon-btn" id="helpBtn" title="玩法说明" aria-label="玩法说明"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9a2.5 2.5 0 1 1 4.7 1.2c-.8 1.1-2.3 1.4-2.3 3M12 17h.01"/></svg></button>
       </div>
     </header>
     <section class="stage">
       <aside class="left-rail">
-        <div class="eyebrow">STAGE 01 <span style="color:#626960">/</span> FIRST KNOT</div>
-        <h1 class="level-title">解开<br><span>第一团</span></h1>
-        <div class="level-copy">找到两端都露出的线，<br>依次点选两端即可拆线。</div>
+        <div class="eyebrow" id="stageLabel">STAGE 01 <span style="color:#626960">/</span> FIRST KNOT</div>
+        <h1 class="level-title" id="levelTitle">解开<br><span>第一团</span></h1>
+        <div class="level-copy" id="levelCopy">找到两端都露出的线，<br>依次点选两端即可拆线。</div>
         <div class="objective"><div class="objective-head">本关目标</div><div class="objective-row"><div class="objective-icon">↗</div><div>拆完所有缠线<small>点击可拆的线头开始</small></div></div></div>
         <div class="bottom-note"><span class="dot">●</span>两端都露出，才能拆线<br>拖动可以转动线箍</div>
       </aside>
@@ -48,17 +50,113 @@
         <div class="thread-list"><div class="thread-head"><span>线团状态</span><b id="remaining">08 条剩余</b></div><div class="thread-items" id="threadItems"></div></div>
         <button class="restart" id="restartBtn"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>重新开始</button>
       </aside>
-      <div class="message" id="message"><small>LEVEL COMPLETE</small><strong>线团解开了</strong><span id="finalTime">用时 00:00</span></div>
+      <div class="message" id="message"><small>LEVEL COMPLETE</small><strong id="completeTitle">线团解开了</strong><span id="finalTime">用时 00:00</span><button class="restart next-level" id="nextLevelBtn" hidden>进入第二关 →</button></div>
     </section>
   </main>
   <script type="module">
     import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js';
 
-    const colors = [0xf52d32,0xffdf24,0x00b875,0x2177ff,0x9230e8,0xff70ba,0xf6f2e5,0xff811a];
-    const names = ['珊瑚红','麦芽黄','薄荷绿','湖水蓝','藤萝紫','樱桃粉','象牙白','柿子橙'];
+    function makeRandom(seed) {
+      let state = seed >>> 0;
+      return () => {
+        state += 0x6D2B79F5;
+        let value = state;
+        value = Math.imul(value ^ value >>> 15, value | 1);
+        value ^= value + Math.imul(value ^ value >>> 7, value | 61);
+        return ((value ^ value >>> 14) >>> 0) / 4294967296;
+      };
+    }
+
+    function createLayout(definition, seed) {
+      const random = makeRandom(seed);
+      const order = Array.from({length: definition.colors.length}, (_, i) => i);
+      for (let i = order.length - 1; i > 0; i--) {
+        const j = Math.floor(random() * (i + 1));
+        [order[i], order[j]] = [order[j], order[i]];
+      }
+
+      const blockers = Array.from({length: order.length}, () => [null, null]);
+      const rank = Array(order.length);
+      order.forEach((strand, position) => { rank[strand] = position; });
+      const roots = definition.roots;
+      for (let position = roots; position < order.length; position++) {
+        const strand = order[position];
+        const earlier = order.slice(0, position);
+        const first = earlier[Math.floor(random() * earlier.length)];
+        const secondPool = earlier.filter(candidate => candidate !== first);
+        const second = secondPool[Math.floor(random() * secondPool.length)];
+        blockers[strand] = [first, second];
+      }
+
+      const geometry = order.map((strand, position) => ({
+        phase: random() * Math.PI * 2,
+        turns: definition.turns + (random() - .5) * .85,
+        band: Math.floor(random() * 3),
+        braidPhase: random() * Math.PI * 2,
+        braidSwing: .78 + random() * .5,
+        radialLift: .045 + random() * .1,
+        crossSweep: .1 + random() * .18,
+        order: position
+      }));
+
+      return {blockers, geometry, order, rank};
+    }
+
+    const levels = {
+      1: {
+        name: '第一关', title: '解开|第一团', subtitle: 'FIRST KNOT',
+        colors: [0xf52d32,0xffdf24,0x00b875,0x2177ff,0x9230e8,0xff70ba,0xf6f2e5,0xff811a],
+        names: ['珊瑚红','麦芽黄','薄荷绿','湖水蓝','藤萝紫','樱桃粉','象牙白','柿子橙'],
+        roots: 2, turns: 2.5, braid: false
+      },
+      2: {
+        name: '第二关', title: '盲织|三重交错', subtitle: 'BLIND WEAVE',
+        colors: [0xff3b30,0xffc928,0x17d6a0,0x2795ff,0xc34dff,0xff54a4,0xe7ef68,0xff7c35,0x4be2df,0xa5a4ff,0xf25269,0xd6f4ff],
+        names: ['绯红','金丝','翠线','靛蓝','紫藤','绯粉','荧黄','橘焰','青瓷','雾紫','朱砂','霜白'],
+        roots: 3, turns: 3.4, braid: true
+      }
+    };
+    const unlocked = localStorage.getItem('threadbound-level-2') === 'unlocked';
+    const requestedLevel = Number(new URLSearchParams(location.search).get('level')) || 1;
+    const levelNumber = requestedLevel >= 2 && unlocked ? 2 : 1;
+    if (requestedLevel >= 2 && !unlocked) history.replaceState(null, '', location.pathname);
+    const level = levels[levelNumber];
+    const seedKey = `threadbound-layout-seed-${levelNumber}`;
+    const requestedSeed = Number(new URLSearchParams(location.search).get('seed'));
+    const storedSeed = Number(localStorage.getItem(seedKey));
+    const layoutSeed = requestedSeed || storedSeed || crypto.getRandomValues(new Uint32Array(1))[0] || 1;
+    localStorage.setItem(seedKey, String(layoutSeed));
+    const layout = createLayout(level, layoutSeed);
+    function verifyLayout() {
+      const removed = new Set();
+      for (const strand of layout.order) {
+        const exposed = layout.blockers[strand].every(blocker => blocker === null || removed.has(blocker));
+        if (!exposed) throw new Error(`Invalid generated layout ${layoutSeed} at strand ${strand}`);
+        removed.add(strand);
+      }
+      if (removed.size !== level.colors.length) throw new Error(`Incomplete generated layout ${layoutSeed}`);
+    }
+    verifyLayout();
+    document.querySelector('.stage').classList.toggle('level-two', levelNumber === 2);
+    document.title = `绕线局 · ${level.name}`;
+    document.getElementById('brandSub').textContent = `THREADBOUND / PUZZLE 0${levelNumber}`;
+    document.getElementById('levelOne').classList.toggle('current', levelNumber === 1);
+    document.getElementById('levelTwo').classList.toggle('current', levelNumber === 2);
+    document.getElementById('levelTwo').classList.toggle('locked', !unlocked);
+    document.getElementById('levelTwo').querySelector('span').textContent = unlocked ? '盲织' : '锁定';
+    document.getElementById('levelTwo').setAttribute('aria-label', unlocked ? '进入第二关：盲织' : '第二关已锁定');
+    document.getElementById('stageLabel').innerHTML = `STAGE 0${levelNumber} <span style="color:#626960">/</span> ${level.subtitle}`;
+    document.getElementById('levelTitle').innerHTML = level.title.split('|').join('<br><span>') + '</span>';
+    document.getElementById('levelCopy').innerHTML = levelNumber === 2
+      ? '三条编织带交错缠绕，<br>找到同色线的两端再依次点选。'
+      : '找到两端都露出的线，<br>依次点选两端即可拆线。';
+    document.getElementById('progressText').textContent = `0 / ${level.colors.length}`;
+    document.getElementById('remaining').textContent = `${String(level.colors.length).padStart(2,'0')} 条剩余`;
+    const colors = level.colors;
+    const names = level.names;
     const count = colors.length;
-    // Each entry tracks the rope covering the start and the end respectively.
-    const endBlockers = [[null,null],[null,null],[null,0],[1,null],[2,null],[2,3],[null,4],[5,6]];
+    const endBlockers = layout.blockers;
+    const bestKey = `threadbound-best-${levelNumber}`;
     const wrap = document.getElementById('sceneWrap');
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(35,1,.1,100);
@@ -122,14 +220,20 @@
       const material = new THREE.MeshStandardMaterial({
         color, roughness: .62, emissive: color, emissiveIntensity: .055
       });
-      const phase = index * Math.PI / 4;
+      const shape = layout.geometry[index];
+      const phase = shape.phase;
+      const band = shape.band;
       const winding = [];
       for (let step = 0; step <= 120; step++) {
         const t = step / 120;
-        const angle = phase + t * Math.PI * 5;
-        const radius = barrelRadius + .07 + .022 * Math.sin(t * 17 + index);
-        const x = (t - .5) * (barrelLength - .24) + .045 * Math.sin(angle + index);
-        winding.push(new THREE.Vector3(x, Math.cos(angle) * radius, Math.sin(angle) * radius));
+        const angle = phase + t * Math.PI * shape.turns * 2;
+        const braidPhase = t * Math.PI * 6 + shape.braidPhase;
+        const lane = level.braid ? band * Math.PI * 2 / 3 + Math.sin(braidPhase) * shape.braidSwing : angle;
+        const radius = barrelRadius + .07 + .022 * Math.sin(t * 17 + index) +
+          (level.braid ? shape.radialLift * Math.cos(braidPhase) : 0);
+        const x = (t - .5) * (barrelLength - .24) +
+          (level.braid ? shape.crossSweep * Math.sin(braidPhase + band * 2) : .045 * Math.sin(angle + index));
+        winding.push(new THREE.Vector3(x, Math.cos(lane) * radius, Math.sin(lane) * radius));
       }
       const tube = new THREE.Mesh(new THREE.BufferGeometry(), material);
       const tips = Array.from({length: 2}, () => {
@@ -236,7 +340,7 @@
       return null;
     }
 
-    function resize(){const r=wrap.getBoundingClientRect();renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;camera.position.z=r.width<600?11.6:9.5;camera.position.y=r.width<600?2.45:2.05;camera.lookAt(0,.5,0);camera.updateProjectionMatrix();}
+    function resize(){const r=wrap.getBoundingClientRect();renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;camera.position.z=r.width<600?11.6:9.5;camera.position.y=r.width<600?2.45:2.05;camera.lookAt(0,levelNumber===2?0:.5,0);camera.updateProjectionMatrix();}
     new ResizeObserver(resize).observe(wrap);resize();
     function timeText(s){const cs=Math.floor((s%1)*100),secs=Math.floor(s)%60,mins=Math.floor(s/60);return `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}.${String(cs).padStart(2,'0')}`;}
     function updateUI(){const removed=yarns.filter(y=>y.removed).length;document.getElementById('timer').innerHTML=timeText(elapsed).replace(':','<em>:</em>').replace('.', '<em>.</em>');document.getElementById('progressText').textContent=`${removed} / ${count}`;document.getElementById('progressBar').style.width=`${removed/count*100}%`;document.getElementById('remaining').textContent=`${String(count-removed).padStart(2,'0')} 条剩余`;document.querySelectorAll('.thread-item').forEach((el,i)=>{const y=yarns[i];el.classList.toggle('active',y.available&&!y.removed);el.classList.toggle('done',y.removed);el.querySelector('.thread-state').textContent=y.removed?'已拆':y.available?'可拆':'缠绕中';});}
@@ -325,11 +429,19 @@
         hint.innerHTML = idleHint;
         if (yarns.every(other => other.removed)) {
           finished = true;
-          const best = Number(localStorage.getItem('threadbound-best') || 0);
+          const best = Number(localStorage.getItem(bestKey) || 0);
           const record = best ? Math.min(best, elapsed) : elapsed;
-          localStorage.setItem('threadbound-best', String(record));
+          localStorage.setItem(bestKey, String(record));
           document.getElementById('best').textContent = timeText(record).slice(0,5);
           document.getElementById('finalTime').textContent = `用时 ${timeText(elapsed).slice(0,5)}`;
+          document.getElementById('completeTitle').textContent = levelNumber === 1 ? '第一团解开了' : '盲织解开了';
+          if (levelNumber === 1) {
+            localStorage.setItem('threadbound-level-2', 'unlocked');
+            document.getElementById('levelTwo').classList.remove('locked');
+            document.getElementById('levelTwo').querySelector('span').textContent = '盲织';
+            document.getElementById('levelTwo').setAttribute('aria-label', '进入第二关：盲织');
+            document.getElementById('nextLevelBtn').hidden = false;
+          }
           document.getElementById('message').classList.add('show');
         }
         updateUI();
@@ -380,8 +492,25 @@
       rig.quaternion.premultiply(turn).normalize();
     }, {passive: false});
 
-    function reset(){location.reload();}
+    function reset(){
+      const nextSeed = crypto.getRandomValues(new Uint32Array(1))[0] || (layoutSeed + 1);
+      localStorage.setItem(seedKey, String(nextSeed));
+      location.reload();
+    }
     document.getElementById('restartBtn').addEventListener('click',reset);
+    document.getElementById('levelOne').addEventListener('click', () => {
+      location.href = location.pathname;
+    });
+    document.getElementById('levelTwo').addEventListener('click', () => {
+      if (localStorage.getItem('threadbound-level-2') === 'unlocked') {
+        location.href = `${location.pathname}?level=2`;
+      } else {
+        hint.innerHTML = '<strong>先完成第一关</strong> · 解开第一团后开放盲织';
+      }
+    });
+    document.getElementById('nextLevelBtn').addEventListener('click', () => {
+      location.href = `${location.pathname}?level=2`;
+    });
     document.getElementById('helpBtn').addEventListener('click', () => {
       if (active) return;
       clearTimeout(helpTimeout);
@@ -396,7 +525,8 @@
       }, 3800);
     });
     document.getElementById('soundBtn').addEventListener('click',e=>{soundOn=!soundOn;e.currentTarget.style.color=soundOn?'var(--lime)':'';});
-    document.getElementById('best').textContent=localStorage.getItem('threadbound-best')?timeText(Number(localStorage.getItem('threadbound-best'))).slice(0,5):'--:--';updateUI();
+    const savedBest = localStorage.getItem(bestKey) || (levelNumber === 1 ? localStorage.getItem('threadbound-best') : null);
+    document.getElementById('best').textContent=savedBest?timeText(Number(savedBest)).slice(0,5):'--:--';updateUI();
     function render(now = performance.now()) {
       requestAnimationFrame(render);
       if (started && !finished) {
