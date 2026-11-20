@@ -175,16 +175,20 @@
     camera.position.set(0,2.05,9.5);
     camera.lookAt(0,.5,0);
     const coarsePointer = matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0;
-    const renderer = new THREE.WebGLRenderer({antialias:!coarsePointer,alpha:true,powerPreference:'high-performance'});
+    const renderer = new THREE.WebGLRenderer({antialias:true,alpha:true,powerPreference:'high-performance'});
     renderer.setPixelRatio(Math.min(devicePixelRatio,coarsePointer?1.35:2));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.18;
     wrap.prepend(renderer.domElement);
-    scene.add(new THREE.HemisphereLight(0xe5ecd9,0x343a3b,2.05));
-    const key = new THREE.DirectionalLight(0xffe9c8,3.1); key.position.set(-4,7,6); scene.add(key);
-    const rim = new THREE.DirectionalLight(0xb6daff,2.2); rim.position.set(5,3,-5); scene.add(rim);
-    const point = new THREE.PointLight(0xd0ed91,13,12); point.position.set(0,2,3); scene.add(point);
+    scene.add(new THREE.HemisphereLight(0xe5ecd9,0x343a3b,coarsePointer?1.45:2.05));
+    const key = new THREE.DirectionalLight(0xffe9c8,coarsePointer?2.2:3.1); key.position.set(-4,7,6); scene.add(key);
+    const rim = new THREE.DirectionalLight(0xb6daff,coarsePointer?1.25:2.2); rim.position.set(5,3,-5); scene.add(rim);
+    if (!coarsePointer) {
+      const point = new THREE.PointLight(0xd0ed91,13,12);
+      point.position.set(0,2,3);
+      scene.add(point);
+    }
     const rig = new THREE.Group(); scene.add(rig);
     const model = new THREE.Group(); rig.add(model);
     const yarns=[]; let active=null; let elapsed=0; let started=false; let finished=false; let startTime=0; let soundOn=false;
