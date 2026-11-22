@@ -94,11 +94,24 @@
         [colorOrder[i], colorOrder[j]] = [colorOrder[j], colorOrder[i]];
       }
 
+      const endSlots = Array.from({length: order.length}, (_, i) => i);
+      for (let i = endSlots.length - 1; i > 0; i--) {
+        const j = Math.floor(random() * (i + 1));
+        [endSlots[i], endSlots[j]] = [endSlots[j], endSlots[i]];
+      }
+      // A rotated copy of the starting slots would keep the same circular order.
+      if (endSlots.every((slot, i) => slot === (endSlots[0] + i) % endSlots.length)) {
+        [endSlots[0], endSlots[1]] = [endSlots[1], endSlots[0]];
+      }
+
       const geometry = Array(order.length);
       order.forEach((strand, position) => {
+        const start = (position + .5 + (random() - .5) * .18) / order.length;
+        const end = (endSlots[position] + (random() - .5) * .18) / order.length;
+        const span = end - start;
         geometry[strand] = {
-          phase: random() * Math.PI * 2,
-          turns: definition.turns + (random() - .5) * .85,
+          phase: start * Math.PI * 2,
+          turns: Math.round(definition.turns - span) + span,
           band: Math.floor(random() * 3),
           braidPhase: random() * Math.PI * 2,
           braidSwing: .78 + random() * .5,
@@ -122,7 +135,7 @@
         name: '第二关', title: '盲织|三重交错', subtitle: 'BLIND WEAVE',
         colors: [0xff3b30,0xffc928,0x17d6a0,0x2795ff,0xc34dff,0xff54a4,0xe7ef68,0xff7c35,0x4be2df,0xa5a4ff,0xf25269,0xd6f4ff],
         names: ['绯红','金丝','翠线','靛蓝','紫藤','绯粉','荧黄','橘焰','青瓷','雾紫','朱砂','霜白'],
-        roots: 3, turns: 3.4, braid: true
+        roots: 3, turns: 3.4, braid: false
       }
     };
     const unlocked = localStorage.getItem('threadbound-level-2') === 'unlocked';
@@ -191,7 +204,78 @@
     }
     const rig = new THREE.Group(); scene.add(rig);
     const model = new THREE.Group(); rig.add(model);
-    const yarns=[]; let active=null; let elapsed=0; let started=false; let finished=false; let startTime=0; let soundOn=false;
+    const yarns=[]; let active=null; let elapsed=0; let started=false; let finished=false; let startTime=0; let soundOn=true;
+    let audioContext;
+    let pullNoise;
+    let pullSource;
+    function readyAudio() {
+      if (!soundOn) return null;
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) return null;
+      audioContext ||= new AudioContextClass();
+      if (audioContext.state === 'suspended') audioContext.resume().catch(() => {});
+      return audioContext;
+    }
+    function playTone(frequency, start, duration, volume, type='sine', endFrequency=frequency) {
+      const context = readyAudio();
+      if (!context) return;
+      const oscillator = context.createOscillator();
+      const gain = context.createGain();
+      oscillator.type = type;
+      oscillator.frequency.setValueAtTime(frequency, start);
+      oscillator.frequency.exponentialRampToValueAtTime(endFrequency, start + duration);
+      gain.gain.setValueAtTime(.001, start);
+      gain.gain.exponentialRampToValueAtTime(volume, start + .012);
+      gain.gain.exponentialRampToValueAtTime(.001, start + duration);
+      oscillator.connect(gain).connect(context.destination);
+      oscillator.start(start);
+      oscillator.stop(start + duration + .01);
+      oscillator.onended = () => { oscillator.disconnect(); gain.disconnect(); };
+    }
+    function playRemoveSound() {
+      const context = readyAudio();
+      if (!context) return;
+      if (!pullNoise) {
+        pullNoise = context.createBuffer(1, Math.round(context.sampleRate * .5), context.sampleRate);
+        const samples = pullNoise.getChannelData(0);
+        for (let i = 0; i < samples.length; i++) samples[i] = Math.random() * 2 - 1;
+      }
+      const now = context.currentTime;
+      const source = context.createBufferSource();
+      const lowpass = context.createBiquadFilter();
+      const highpass = context.createBiquadFilter();
+      const gain = context.createGain();
+      source.buffer = pullNoise;
+      source.loop = true;
+      highpass.type = 'highpass';
+      highpass.frequency.value = 850;
+      lowpass.type = 'lowpass';
+      lowpass.frequency.setValueAtTime(4200, now);
+      lowpass.frequency.linearRampToValueAtTime(2600, now + 1.2);
+      gain.gain.setValueAtTime(.001, now);
+      for (let i = 1; i <= 32; i++) {
+        const t = i / 32;
+        const friction = .028 + .012 * Math.sin(t * Math.PI * 14) ** 2;
+        gain.gain.linearRampToValueAtTime(friction * Math.sin(t * Math.PI), now + t * 1.2);
+      }
+      gain.gain.linearRampToValueAtTime(0, now + 1.25);
+      source.connect(highpass).connect(lowpass).connect(gain).connect(context.destination);
+      source.start(now);
+      source.stop(now + 1.26);
+      pullSource = source;
+      source.onended = () => {
+        source.disconnect(); highpass.disconnect(); lowpass.disconnect(); gain.disconnect();
+        if (pullSource === source) pullSource = null;
+      };
+    }
+    function playCompleteSound() {
+      const context = readyAudio();
+      if (!context) return;
+      const now = context.currentTime;
+      [523.25, 659.25, 783.99, 1046.5].forEach((pitch, index) => {
+        playTone(pitch, now + index * .12, index === 3 ? .55 : .3, .09);
+      });
+    }
     const mat=(color,metalness=0,roughness=.4)=>new THREE.MeshStandardMaterial({color,metalness,roughness});
     const metal=mat(0x87908a,.82,.24), darkMetal=mat(0x38423e,.78,.29), gold=mat(0xc9a765,.7,.23);
 
@@ -269,8 +353,8 @@
         const outward = new THREE.Vector3(0, end.y, end.z).normalize();
         const tucked = outward.clone().multiplyScalar(barrelRadius - .15);
         tucked.x = end.x;
-        const tip = end.clone().addScaledVector(outward, .36);
-        tip.x += side === 0 ? -.24 : .24;
+        const tip = end.clone().addScaledVector(outward, .16);
+        tip.x += side === 0 ? -.42 : .42;
         yarn.tips[side].position.copy(tip);
         yarn.tips[side].visible = exposed[side];
         return exposed[side] ? [tip, tip.clone().lerp(end, .46)] : [tucked];
@@ -408,6 +492,7 @@
 
     function playRemove(yarn, fromEnd) {
       hint.innerHTML = '<strong>线团松开中</strong> · 自动拆线';
+      playRemoveSound();
 
       const path = yarn.basePositions.slice();
       if (fromEnd) path.reverse();
@@ -450,6 +535,7 @@
         hint.innerHTML = idleHint;
         if (yarns.every(other => other.removed)) {
           finished = true;
+          playCompleteSound();
           const best = Number(localStorage.getItem(bestKey) || 0);
           const record = best ? Math.min(best, elapsed) : elapsed;
           localStorage.setItem(bestKey, String(record));
@@ -474,6 +560,7 @@
     const canvas = renderer.domElement;
     canvas.addEventListener('pointerdown', event => {
       if (gesture || event.button !== 0) return;
+      readyAudio();
       gesture = {
         id: event.pointerId, x: event.clientX, y: event.clientY,
         lastPoint: trackballPoint(event).clone(), dragging: false
@@ -548,7 +635,19 @@
         hint.innerHTML = yarn.available ? selectionHint : blockedHint;
       }, 3800);
     });
-    document.getElementById('soundBtn').addEventListener('click',e=>{soundOn=!soundOn;e.currentTarget.style.color=soundOn?'var(--lime)':'';});
+    const soundBtn = document.getElementById('soundBtn');
+    function updateSoundButton() {
+      soundBtn.style.color = soundOn ? 'var(--lime)' : '';
+      soundBtn.setAttribute('aria-pressed', String(soundOn));
+      soundBtn.setAttribute('aria-label', soundOn ? '关闭音效' : '开启音效');
+    }
+    soundBtn.addEventListener('click', () => {
+      soundOn = !soundOn;
+      if (soundOn) readyAudio();
+      else if (pullSource) pullSource.stop();
+      updateSoundButton();
+    });
+    updateSoundButton();
     const savedBest = localStorage.getItem(bestKey) || (levelNumber === 1 ? localStorage.getItem('threadbound-best') : null);
     document.getElementById('best').textContent=savedBest?timeText(Number(savedBest)).slice(0,5):'--:--';updateUI();
     function render(now = performance.now()) {
