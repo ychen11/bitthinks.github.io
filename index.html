@@ -204,10 +204,10 @@
     }
     const rig = new THREE.Group(); scene.add(rig);
     const model = new THREE.Group(); rig.add(model);
-    const yarns=[]; let active=null; let elapsed=0; let started=false; let finished=false; let startTime=0; let soundOn=true;
+    const yarns=[]; let animatingCount=0; let elapsed=0; let started=false; let finished=false; let startTime=0; let soundOn=true;
     let audioContext;
     let pullNoise;
-    let pullSource;
+    const pullSources = new Set();
     function readyAudio() {
       if (!soundOn) return null;
       const AudioContextClass = window.AudioContext || window.webkitAudioContext;
@@ -262,10 +262,10 @@
       source.connect(highpass).connect(lowpass).connect(gain).connect(context.destination);
       source.start(now);
       source.stop(now + 1.26);
-      pullSource = source;
+      pullSources.add(source);
       source.onended = () => {
         source.disconnect(); highpass.disconnect(); lowpass.disconnect(); gain.disconnect();
-        if (pullSource === source) pullSource = null;
+        pullSources.delete(source);
       };
     }
     function playCompleteSound() {
@@ -337,13 +337,14 @@
         winding.push(new THREE.Vector3(x, Math.cos(lane) * radius, Math.sin(lane) * radius));
       }
       const tube = new THREE.Mesh(new THREE.BufferGeometry(), material);
+      tube.userData.yarnIndex = index;
       const tips = Array.from({length: 2}, () => {
         const tip = new THREE.Mesh(tipGeometry, material);
         tip.userData.ropeIndex = index;
         return tip;
       });
       model.add(tube, ...tips);
-      return {index, winding, tube, tips, material, available: false, removed: false};
+      return {index, winding, tube, tips, material, available: false, removing: false, removed: false};
     }
 
     function updateEnds(yarn) {
@@ -411,7 +412,7 @@
         let nearest = null;
         let nearestDistance = threshold;
         for (const yarn of yarns) {
-          if (yarn.removed) continue;
+          if (yarn.removing || yarn.removed) continue;
           for (const tip of yarn.tips) {
             if (!tip.visible) continue;
             const screen = tip.getWorldPosition(rotationPoint).project(camera);
@@ -432,7 +433,8 @@
 
       const hits = raycaster.intersectObjects(
         model.children.filter(mesh => mesh.visible &&
-          (mesh.userData.ropeIndex !== undefined || mesh.userData.getTipAt)), false
+          (mesh.userData.ropeIndex !== undefined || mesh.userData.getTipAt) &&
+          !yarns[mesh.userData.ropeIndex ?? mesh.userData.yarnIndex]?.removing), false
       );
       for (const hit of hits) {
         const {ropeIndex, getTipAt} = hit.object.userData;
@@ -446,12 +448,12 @@
     function resize(){const r=wrap.getBoundingClientRect();renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;camera.position.z=r.width<600?11.6:9.5;camera.position.y=r.width<600?2.45:2.05;camera.lookAt(0,levelNumber===2?0:.5,0);camera.updateProjectionMatrix();sceneDirty=true;}
     new ResizeObserver(resize).observe(wrap);resize();
     function timeText(s){const cs=Math.floor((s%1)*100),secs=Math.floor(s)%60,mins=Math.floor(s/60);return `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}.${String(cs).padStart(2,'0')}`;}
-    function updateUI(){const removed=yarns.filter(y=>y.removed).length;document.getElementById('timer').innerHTML=timeText(elapsed).replace(':','<em>:</em>').replace('.', '<em>.</em>');document.getElementById('progressText').textContent=`${removed} / ${count}`;document.getElementById('progressBar').style.width=`${removed/count*100}%`;document.getElementById('remaining').textContent=`${String(count-removed).padStart(2,'0')} 条剩余`;document.querySelectorAll('.thread-item').forEach((el,i)=>{const y=yarns[i];el.classList.toggle('active',y.available&&!y.removed);el.classList.toggle('done',y.removed);el.querySelector('.thread-state').textContent=y.removed?'已拆':y.available?'可拆':'缠绕中';});}
+    function updateUI(){const removed=yarns.filter(y=>y.removed).length;document.getElementById('timer').innerHTML=timeText(elapsed).replace(':','<em>:</em>').replace('.', '<em>.</em>');document.getElementById('progressText').textContent=`${removed} / ${count}`;document.getElementById('progressBar').style.width=`${removed/count*100}%`;document.getElementById('remaining').textContent=`${String(count-removed).padStart(2,'0')} 条剩余`;document.querySelectorAll('.thread-item').forEach((el,i)=>{const y=yarns[i];el.classList.toggle('active',y.available&&!y.removing&&!y.removed);el.classList.toggle('done',y.removed);el.querySelector('.thread-state').textContent=y.removed?'已拆':y.removing?'拆除中':y.available?'可拆':'缠绕中';});}
     const list=document.getElementById('threadItems');
     names.forEach((name,i)=>{const el=document.createElement('div');el.className='thread-item';el.innerHTML=`<i class="swatch" style="--c:#${colors[i].toString(16).padStart(6,'0')}"></i><span class="thread-name">${name}线</span><span class="thread-state">缠绕中</span>`;list.append(el);});
     function selectTip(tip) {
       const yarn = yarns[tip.userData.ropeIndex];
-      if (active || finished || !tip.visible || yarn.removed || tip === selectedTip) return;
+      if (finished || !tip.visible || yarn.removing || yarn.removed || tip === selectedTip) return;
       if (!started) {
         started = true;
         startTime = performance.now();
@@ -472,8 +474,10 @@
     }
 
     function flashThenRemove(yarn, fromEnd) {
-      active = yarn;
-      hint.innerHTML = '<strong>首尾确认</strong> · 即将拆线';
+      yarn.removing = true;
+      animatingCount++;
+      updateUI();
+      if (!selectedTip) hint.innerHTML = '<strong>首尾确认</strong> · 即将拆线';
       const normalEmission = yarn.material.emissiveIntensity;
       const start = performance.now();
       function flash(now) {
@@ -491,7 +495,7 @@
     }
 
     function playRemove(yarn, fromEnd) {
-      hint.innerHTML = '<strong>线团松开中</strong> · 自动拆线';
+      if (!selectedTip) hint.innerHTML = '<strong>线团松开中</strong> · 可继续拆其他线';
       playRemoveSound();
 
       const path = yarn.basePositions.slice();
@@ -530,9 +534,14 @@
         yarn.material.dispose();
         yarns.filter(other => !other.removed && !other.available).forEach(updateEnds);
         sceneDirty = true;
-        active = null;
+        animatingCount--;
         elapsed = (now - startTime) / 1000;
-        hint.innerHTML = idleHint;
+        if (selectedTip) {
+          const selectedYarn = yarns[selectedTip.userData.ropeIndex];
+          hint.innerHTML = selectedYarn.available ? selectionHint : blockedHint;
+        } else {
+          hint.innerHTML = animatingCount ? '<strong>线团松开中</strong> · 可继续拆其他线' : idleHint;
+        }
         if (yarns.every(other => other.removed)) {
           finished = true;
           playCompleteSound();
@@ -585,7 +594,7 @@
       if (gesture?.id !== event.pointerId) return;
       const {dragging} = gesture;
       gesture = null;
-      if (dragging || active) return;
+      if (dragging) return;
       const tip = pickTipAt(event.clientX, event.clientY);
       if (tip) selectTip(tip);
     });
@@ -623,7 +632,6 @@
       location.href = `${location.pathname}?level=2`;
     });
     document.getElementById('helpBtn').addEventListener('click', () => {
-      if (active) return;
       clearTimeout(helpTimeout);
       hint.innerHTML = '<strong>首尾都露出后</strong> · 依次点选同一根线的两端';
       helpTimeout = setTimeout(() => {
@@ -644,7 +652,7 @@
     soundBtn.addEventListener('click', () => {
       soundOn = !soundOn;
       if (soundOn) readyAudio();
-      else if (pullSource) pullSource.stop();
+      else for (const source of pullSources) source.stop();
       updateSoundButton();
     });
     updateSoundButton();
@@ -656,7 +664,7 @@
         elapsed = (now - startTime) / 1000;
         document.getElementById('timer').innerHTML = timeText(elapsed).replace(':','<em>:</em>').replace('.', '<em>.</em>');
       }
-      if (sceneDirty || active) {
+      if (sceneDirty || animatingCount) {
         renderer.render(scene, camera);
         sceneDirty = false;
       }
